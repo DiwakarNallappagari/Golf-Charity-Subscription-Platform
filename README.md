@@ -8,7 +8,7 @@ This platform combines **golf performance tracking, subscription-based rewards, 
 ## 🚀 Live Demo
 
 🌐 Frontend: https://golf-charity-subscription-platform-mu.vercel.app 
-⚙️ Backend API:https://golf-charity-subscription-platform-vayx.onrender.com
+⚙️ Backend API:https://golf-charity-subscription-platform-vayx.onrender.com/api
 
 ---
 
