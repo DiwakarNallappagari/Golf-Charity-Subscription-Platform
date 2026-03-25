@@ -1,5 +1,7 @@
 # Golf Charity Subscription Platform
 
+![Platform Dashboard Overview](assets/dashboard.png)
+
 Production-ready MERN stack application meticulously engineered for the Digital Heroes Selection Process.
 
 ## Key Features (PRD Aligned)
