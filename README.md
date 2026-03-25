@@ -21,7 +21,7 @@ Production-ready MERN stack application meticulously engineered for the Digital 
 5. Set the **Build Command** to: `npm install`
 6. Set the **Start Command** to: `npm start`
 7. Add your Environment Variables in the Render dashboard:
-   - `MONGODB_URI`: `mongodb+srv://nallappagaridiwakar_db_user:Diwakar630202@cluster0.5jvxqxg.mongodb.net/golfcharity?retryWrites=true&w=majority`
+   - `MONGODB_URI`: `mongodb+srv://<username>:<password>@cluster0...`
    - `JWT_SECRET`: `any_random_secure_long_string`
    - `NODE_ENV`: `production`
 

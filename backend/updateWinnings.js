@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const User = require('./src/models/User');
 
-const MONGODB_URI = 'mongodb+srv://nallappagaridiwakar_db_user:Diwakar630202@cluster0.5jvxqxg.mongodb.net/golfcharity?retryWrites=true&w=majority';
+require('dotenv').config();
+const MONGODB_URI = process.env.MONGODB_URI || '<YOUR_MONGODB_URI>';
 
 mongoose.connect(MONGODB_URI)
   .then(async () => {
