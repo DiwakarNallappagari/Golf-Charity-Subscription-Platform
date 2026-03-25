@@ -16,7 +16,7 @@ This platform combines **golf performance tracking, subscription-based rewards, 
 
 ![Dashboard](./assets/dashboard.png)
 ![Login](./assets/login.png)
-![Admin](./assets/admin.png)
+ 
 
 ---
 
