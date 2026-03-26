@@ -23,38 +23,13 @@ export default function Dashboard() {
   // Simulation Draw State
   const [drawNumbers, setDrawNumbers] = useState([]);
   const [matchCount, setMatchCount] = useState(0);
-  const [simulatedWinnings, setSimulatedWinnings] = useState(0);
+  const [winningsTotal, setWinningsTotal] = useState(0);
 
   useEffect(() => {
-    // Generate 5 random winning numbers on initial Dashboard load
-    const nums = [];
-    while(nums.length < 5) {
-      const r = Math.floor(Math.random() * 45) + 1;
-      if(!nums.includes(r)) nums.push(r);
-    }
-    setDrawNumbers(nums.sort((a,b) => a-b));
     fetchScores();
+    fetchWinnings();
   }, []);
 
-  useEffect(() => {
-    // Calculate winnings and matches dynamically whenever scores or draw numbers change
-    if (scores.length > 0 && drawNumbers.length > 0) {
-      const scoreVals = scores.map(s => s.value);
-      const count = scoreVals.filter(s => drawNumbers.includes(s)).length;
-      setMatchCount(count);
-      
-      let w = 0;
-      if (count >= 1) w = 50;
-      if (count >= 2) w = 100;
-      if (count >= 3) w = 200;
-      if (count >= 4) w = 1500;
-      if (count === 5) w = 50000;
-      setSimulatedWinnings(w);
-    } else {
-      setMatchCount(0);
-      setSimulatedWinnings(0);
-    }
-  }, [scores, drawNumbers]);
 
   const showToast = (msg, type = 'success') => {
     setToastMessage(msg);
@@ -65,10 +40,17 @@ export default function Dashboard() {
   const fetchScores = async () => {
     try {
       const { data } = await api.get('/scores');
-      setScores(data.reverse()); // Graph expects chronological (oldest first)
-    } catch (e) {
-      console.error(e);
-    }
+      setScores(data.reverse());
+    } catch (e) { console.error(e); }
+  };
+
+  const fetchWinnings = async () => {
+    try {
+      const { data } = await api.get('/draws/my-winnings');
+      setDrawNumbers(data.winningNumbers || []);
+      setMatchCount(data.matchCount || 0);
+      setWinningsTotal(data.winningsTotal || 0);
+    } catch (e) { console.error(e); }
   };
 
   const handleScoreSubmit = async (e) => {
@@ -81,7 +63,8 @@ export default function Dashboard() {
     try {
       await api.post('/scores', { value: Number(newScore) });
       setNewScore('');
-      fetchScores();
+      await fetchScores();
+      await fetchWinnings();
       showToast('Awesome! Score tracked (FIFO Applied).');
     } catch (err) {
       showToast(err.response?.data?.message || 'Error submitting score', 'error');
@@ -171,9 +154,9 @@ export default function Dashboard() {
               <div className="ml-5 w-0 flex-1">
                 <dt className="text-[11px] font-black text-gray-400 tracking-widest uppercase">Winnings Total</dt>
                 <dd className="text-3xl font-black text-white mt-1 flex items-baseline">
-                  ${(user?.winningsTotal || 0) + simulatedWinnings} 
+                  ${winningsTotal.toLocaleString()}
                   <span className="text-[9px] ml-2 font-black text-emerald-500 uppercase tracking-widest">
-                    {simulatedWinnings > 0 ? '+ SIM WON' : ''}
+                    {winningsTotal > 0 ? '🏆 WON' : ''}
                   </span>
                 </dd>
               </div>
