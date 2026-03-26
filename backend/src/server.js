@@ -26,9 +26,14 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Basic route
+// ✅ Basic route
 app.get('/', (req, res) => {
   res.send('Golf Charity Subscription Platform API is running...');
+});
+
+// ✅ ADD THIS (VERY IMPORTANT)
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 // API Routes
@@ -37,7 +42,7 @@ app.use('/api/scores', scoreRoutes);
 app.use('/api/charities', charityRoutes);
 app.use('/api/draws', drawRoutes);
 
-// Error Handling Middlewares
+// ❗ Error Handling (must be LAST)
 app.use(notFound);
 app.use(errorHandler);
 
