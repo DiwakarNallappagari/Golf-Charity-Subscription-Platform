@@ -90,9 +90,9 @@ export default function Register() {
             
             <div className="pt-3 border-t border-white/5 mt-3">
               <label className="block text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1.5 ml-1">Select Supported Charity</label>
-              <select required value={charityId} onChange={(e) => setCharityId(e.target.value)} className="w-full bg-[#050505] border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 font-bold transition-all appearance-none cursor-pointer">
-                {loadingCharities && <option value="">Loading charities...</option>}
-                {!loadingCharities && charities.length === 0 && <option value="">No charities available yet</option>}
+              <select value={charityId} onChange={(e) => setCharityId(e.target.value)} className="w-full bg-[#050505] border border-white/10 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 font-bold transition-all appearance-none cursor-pointer">
+                <option value="">-- Select a charity (optional) --</option>
+                {loadingCharities && <option value="" disabled>Loading charities...</option>}
                 {charities.map(c => (
                   <option key={c._id} value={c._id}>{c.name}</option>
                 ))}
